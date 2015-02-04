@@ -1,0 +1,53 @@
+'use strict';
+
+module.exports = function(grunt) {
+  
+  grunt.initConfig ({
+    
+    jshint: {
+      dev: {
+        options: {
+          node: true,
+          globals: {
+            describe: true,
+            it: true
+          }
+        },
+        src: ['Gruntfile.js', 'app.js', 'lib/*.js', 'test/*.js'] 
+      }  
+    },
+    
+    simplemocha: {
+      all: {
+        src: ['test/*.js']
+      }
+    },
+
+    jscs: {
+      all: {
+        options: {
+          "preset": "google" 
+        },
+        files: {
+          src: ['Gruntfile.js', 'app.js', 'lib/greet.js', 'test/testing.js']
+        }
+      }
+    },
+
+    watch: {
+      files: ['Gruntfile.js', 'app.js', 'lib/*.js', 'test/*.js'],
+      tasks: ['jshint:dev', 'simplemocha:all', 'jscs:all']
+    }
+
+  });
+
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-simple-mocha');
+  grunt.loadNpmTasks('grunt-contrib-jscs');
+  grunt.loadNpmTasks('grunt-contrib-watch');
+
+  grunt.registerTask('test', ['jshint:dev', 'simplemocha:all', 'jscs:all']);
+  grunt.registerTask('default', ['test']);
+
+};
+
