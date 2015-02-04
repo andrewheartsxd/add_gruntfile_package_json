@@ -7,11 +7,7 @@ module.exports = function(grunt) {
     jshint: {
       dev: {
         options: {
-          node: true,
-          globals: {
-            describe: true,
-            it: true
-          }
+          jshintrc: '.jshintrc',
         },
         src: ['Gruntfile.js', 'app.js', 'lib/*.js', 'test/*.js'] 
       }  
